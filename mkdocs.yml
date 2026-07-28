@@ -108,6 +108,33 @@ nav:
       - Code Review: 04-github/code-review.md
       - GitHub CLI: 04-github/github-cli.md
       - Troubleshooting: 04-github/github-troubleshooting.md
+  - Editors:
+      - Overview: 05-editors/README.md
+      - What Is a Code Editor?: 05-editors/what-is-a-code-editor.md
+      - VS Code Setup: 05-editors/vs-code-setup.md
+      - VS Code Extensions: 05-editors/vs-code-extensions.md
+      - Debugging: 05-editors/debugging.md
+      - Editor Integrations: 05-editors/editor-integrations.md
+      - Remote Development: 05-editors/remote-development.md
+      - Productivity & Customization: 05-editors/productivity.md
+      - Unity Editor: 05-editors/unity-editor.md
+      - Godot: 05-editors/godot.md
+      - Unreal Engine: 05-editors/unreal-engine.md
+      - AI Coding Tools: 05-editors/ai-coding-tools.md
+      - Troubleshooting: 05-editors/editors-troubleshooting.md
+  - Programming Languages:
+      - Overview: 06-programming-languages/README.md
+      - What Is a Programming Language?: 06-programming-languages/what-is-a-programming-language.md
+      - Choosing a Language: 06-programming-languages/choosing-a-language.md
+      - Python: 06-programming-languages/python.md
+      - JavaScript: 06-programming-languages/javascript.md
+      - TypeScript: 06-programming-languages/typescript.md
+      - C#: 06-programming-languages/csharp.md
+      - C++: 06-programming-languages/cpp.md
+      - SQL: 06-programming-languages/sql.md
+      - HTML & CSS: 06-programming-languages/html-and-css.md
+      - Learning a New Language: 06-programming-languages/learning-new-languages.md
+      - Troubleshooting: 06-programming-languages/languages-troubleshooting.md
   - AI Development:
       - Overview: 09-ai-development/README.md
       - What Is AI Development?: 09-ai-development/what-is-ai-development.md
