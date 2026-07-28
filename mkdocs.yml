@@ -1,0 +1,108 @@
+site_name: Developer Handbook
+site_description: A personal engineering reference manual for software developers.
+site_url: ""
+
+theme:
+  name: material
+  palette:
+    - scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - scheme: slate
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  features:
+    - navigation.sections
+    - navigation.expand
+    - navigation.top
+    - search.highlight
+    - search.suggest
+    - content.code.copy
+    - content.code.annotate
+    - content.tabs.link
+  icon:
+    repo: fontawesome/brands/github
+
+repo_url: ""
+edit_uri: ""
+
+nav:
+  - Home: README.md
+  - Templates:
+      - Topic Page: 00-templates/topic-page.md
+      - Cheat Sheet: 00-templates/cheat-sheet.md
+      - Decision Tree: 00-templates/decision-tree.md
+      - Checklist: 00-templates/checklist.md
+      - Project Plan: 00-templates/project-plan.md
+      - Feature Proposal: 00-templates/feature-proposal.md
+      - Bug Report: 00-templates/bug-report.md
+      - Pull Request: 00-templates/pull-request.md
+      - Release Notes: 00-templates/release-notes.md
+      - Meeting Notes: 00-templates/meeting-notes.md
+      - Sprint Planning: 00-templates/sprint-planning.md
+      - Retrospective: 00-templates/retrospective.md
+      - Architecture Decision Record: 00-templates/architecture-decision-record.md
+      - Research Notes: 00-templates/research-notes.md
+      - Design Document: 00-templates/design-document.md
+      - Game Design Document: 00-templates/game-design-document.md
+      - Hackathon Plan: 00-templates/hackathon-planning.md
+      - Experiment Log: 00-templates/experiment-log.md
+      - README Template: 00-templates/readme.md
+      - AGENTS.md Template: 00-templates/agents-md.md
+  - Terminal:
+      - Overview: 02-terminal/README.md
+      - What Is a Terminal?: 02-terminal/what-is-a-terminal.md
+      - PowerShell: 02-terminal/powershell.md
+      - Bash: 02-terminal/bash.md
+      - PowerShell vs Bash: 02-terminal/powershell-vs-bash.md
+      - Navigation: 02-terminal/navigation.md
+      - File Management: 02-terminal/file-management.md
+      - Searching: 02-terminal/searching.md
+      - Pipes and Redirection: 02-terminal/pipes-and-redirection.md
+      - Text Processing: 02-terminal/text-processing.md
+      - Processes: 02-terminal/processes.md
+      - Networking: 02-terminal/networking.md
+      - SSH: 02-terminal/ssh.md
+      - Environment Variables: 02-terminal/environment-variables.md
+      - Cheat Sheet: 02-terminal/terminal-cheat-sheet.md
+      - Troubleshooting: 02-terminal/terminal-troubleshooting.md
+  - Cheat Sheets:
+      - Terminal Quick Reference: 18-cheat-sheets/terminal-quick-reference.md
+
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - tables
+  - toc:
+      permalink: true
+  - attr_list
+  - md_in_html
+  - def_list
+
+plugins:
+  - search
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com

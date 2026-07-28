@@ -35,3 +35,6 @@ __pycache__/
 .env
 .venv/
 venv/
+
+# MkDocs build output
+site/
