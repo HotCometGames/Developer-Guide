@@ -85,6 +85,29 @@ nav:
       - Environment Variables: 02-terminal/environment-variables.md
       - Cheat Sheet: 02-terminal/terminal-cheat-sheet.md
       - Troubleshooting: 02-terminal/terminal-troubleshooting.md
+  - Git:
+      - Overview: 03-git/README.md
+      - What Is Git?: 03-git/what-is-git.md
+      - Basic Workflow: 03-git/basic-workflow.md
+      - Branching & Merging: 03-git/branching.md
+      - Working with Remotes: 03-git/remote-repos.md
+      - Undoing Changes: 03-git/undoing-changes.md
+      - Collaboration: 03-git/collaboration.md
+      - Git Internals: 03-git/git-internals.md
+      - Advanced Git: 03-git/advanced-git.md
+      - Configuration: 03-git/git-configuration.md
+      - Troubleshooting: 03-git/git-troubleshooting.md
+  - GitHub:
+      - Overview: 04-github/README.md
+      - What Is GitHub?: 04-github/what-is-github.md
+      - Repositories: 04-github/repositories.md
+      - Pull Requests: 04-github/pull-requests.md
+      - Issues & Projects: 04-github/issues-and-projects.md
+      - GitHub Actions: 04-github/github-actions.md
+      - GitHub Pages: 04-github/github-pages.md
+      - Code Review: 04-github/code-review.md
+      - GitHub CLI: 04-github/github-cli.md
+      - Troubleshooting: 04-github/github-troubleshooting.md
   - AI Development:
       - Overview: 09-ai-development/README.md
       - What Is AI Development?: 09-ai-development/what-is-ai-development.md
