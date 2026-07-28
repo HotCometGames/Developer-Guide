@@ -73,7 +73,23 @@ nav:
       - Cheat Sheet: 02-terminal/terminal-cheat-sheet.md
       - Troubleshooting: 02-terminal/terminal-troubleshooting.md
   - Cheat Sheets:
-      - Terminal Quick Reference: 18-cheat-sheets/terminal-quick-reference.md
+      - Foundations: 18-cheat-sheets/foundations-quick-reference.md
+      - Terminal: 18-cheat-sheets/terminal-quick-reference.md
+      - Git: 18-cheat-sheets/git-quick-reference.md
+      - GitHub: 18-cheat-sheets/github-quick-reference.md
+      - Editors: 18-cheat-sheets/editors-quick-reference.md
+      - Languages: 18-cheat-sheets/languages-quick-reference.md
+      - Package Managers: 18-cheat-sheets/package-managers-quick-reference.md
+      - Virtual Envs: 18-cheat-sheets/venvs-quick-reference.md
+      - AI Development: 18-cheat-sheets/ai-dev-quick-reference.md
+      - Architecture: 18-cheat-sheets/architecture-quick-reference.md
+      - Project Management: 18-cheat-sheets/pm-quick-reference.md
+      - Testing: 18-cheat-sheets/testing-quick-reference.md
+      - Deployment: 18-cheat-sheets/deployment-quick-reference.md
+      - Game Development: 18-cheat-sheets/gamedev-quick-reference.md
+      - Machine Learning: 18-cheat-sheets/ml-quick-reference.md
+      - Hackathons: 18-cheat-sheets/hackathons-quick-reference.md
+      - Wisdom: 18-cheat-sheets/wisdom-quick-reference.md
 
 markdown_extensions:
   - admonition
