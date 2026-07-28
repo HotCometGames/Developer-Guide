@@ -75,6 +75,14 @@ opencode                                          # Launch in project dir
 | `/share` | Share conversation link |
 | `/connect` | Set up LLM provider |
 
+### CLI Commands
+
+| Command | What It Does |
+|---------|-------------|
+| `opencode agent create` | Interactive wizard to create a new agent |
+| `opencode agent list` | List all available agents |
+| `opencode agent create --help` | Show agent creation flags |
+
 ### Custom Agent (Markdown)
 
 `.opencode/agents/review.md`:

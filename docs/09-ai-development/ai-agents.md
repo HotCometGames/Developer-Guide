@@ -222,48 +222,103 @@ Switch between primary agents with **Tab**. Invoke subagents with `@general`, `@
 
 ### Creating Custom Agents
 
-**Markdown method** — Create a file in `.opencode/agents/`:
+There are three ways to create agents: markdown files, JSON config, or the CLI wizard.
 
-```markdown
----
-description: Reviews code for quality and best practices
-mode: subagent
-model: anthropic/claude-sonnet-4-20250514
-temperature: 0.1
-permission:
-  edit: deny
-  bash: deny
----
-You are in code review mode. Focus on:
-- Code quality and best practices
-- Potential bugs and edge cases
-- Performance implications
-- Security considerations
-Provide constructive feedback without making direct changes.
-```
+#### Step-by-step (Markdown method)
 
-**JSON method** — Add to `opencode.json`:
+1. **Choose a location:**
+   - Project-specific: `.opencode/agents/` (commit to Git to share with team)
+   - Global: `~/.config/opencode/agents/` (available in all projects)
 
-```json
-{
-  "agent": {
-    "code-reviewer": {
-      "description": "Reviews code for best practices and potential issues",
-      "mode": "subagent",
-      "model": "anthropic/claude-sonnet-4-20250514",
-      "prompt": "You are a code reviewer. Focus on security, performance, and maintainability.",
-      "permission": {
-        "edit": "deny"
-      }
-    }
-  }
-}
-```
+2. **Create the directory and file:**
+   ```
+   .opencode/agents/
+   └── code-reviewer.md      ← filename becomes the agent name
+   ```
 
-**CLI method** — Interactive creation:
+3. **Write the frontmatter and prompt:**
+
+   ```markdown
+   ---
+   description: Reviews code for quality and best practices
+   mode: subagent
+   model: anthropic/claude-sonnet-4-20250514
+   temperature: 0.1
+   permission:
+     edit: deny
+     bash: deny
+   ---
+   You are in code review mode. Focus on:
+   - Code quality and best practices
+   - Potential bugs and edge cases
+   - Performance implications
+   - Security considerations
+   Provide constructive feedback without making direct changes.
+   ```
+
+4. **Verify it works:** Run `opencode agent list` to see your new agent.
+
+#### Step-by-step (JSON method)
+
+1. **Open `opencode.json`** in your project root (or `~/.config/opencode/opencode.json` for global).
+
+2. **Add the agent under the `"agent"` key:**
+
+   ```json
+   {
+     "agent": {
+       "code-reviewer": {
+         "description": "Reviews code for best practices and potential issues",
+         "mode": "subagent",
+         "model": "anthropic/claude-sonnet-4-20250514",
+         "prompt": "You are a code reviewer. Focus on security, performance, and maintainability.",
+         "permission": {
+           "edit": "deny"
+         }
+       }
+     }
+   }
+   ```
+
+3. **Verify it works:** Run `opencode agent list` to see your new agent.
+
+#### Step-by-step (CLI method)
+
+The interactive wizard walks you through creating an agent:
 
 ```bash
 opencode agent create
+```
+
+It will:
+1. Ask where to save the agent (global or project-specific)
+2. Ask for a description of what the agent should do
+3. Generate an appropriate system prompt and identifier
+4. Let you select which permissions the agent should be allowed (anything not selected is denied)
+5. Create a markdown file with the agent configuration
+
+**Flags for non-interactive use:**
+
+| Flag | Short | Description |
+|------|-------|-------------|
+| `--path` | | Directory to write the agent file to |
+| `--description` | | What the agent should do |
+| `--mode` | | `all`, `primary`, or `subagent` |
+| `--permissions` | | Comma-separated permissions to allow (alias: `--tools`) |
+| `--model` | `-m` | Model in `provider/model` format |
+
+Providing all of `--path`, `--description`, `--mode`, and `--permissions` runs the command non-interactively.
+
+**Available permissions:** `bash`, `read`, `edit`, `glob`, `grep`, `webfetch`, `task`, `todowrite`, `websearch`, `lsp`, `skill`
+
+```bash
+# Example: non-interactive creation
+opencode agent create \
+  --path .opencode/agents \
+  --description "Reviews code for security issues" \
+  --mode subagent \
+  --permissions "read,edit,glob,grep" \
+  --model anthropic/claude-sonnet-4-20250514
 ```
 
 ### Key Agent Options
@@ -312,51 +367,214 @@ Permission keys: `read`, `edit`, `bash`, `glob`, `grep`, `task`, `webfetch`, `we
 
 ### Agent Skills
 
-Skills are reusable instruction files loaded on demand via the `skill` tool. Place them in:
+Skills are reusable instruction files loaded on demand via the `skill` tool. Agents see available skills in their tool description and load the full content when needed.
 
-- `.opencode/skills/<name>/SKILL.md` (project)
-- `~/.config/opencode/skills/<name>/SKILL.md` (global)
+#### Step-by-step: Creating a Skill
 
-```markdown
----
-name: git-release
-description: Create consistent releases and changelogs
----
-## What I do
-- Draft release notes from merged PRs
-- Propose a version bump
-- Provide a copy-pasteable `gh release create` command
+1. **Choose a location:**
+   - Project-specific: `.opencode/skills/`
+   - Global: `~/.config/opencode/skills/`
+   - Also compatible with: `.claude/skills/` and `.agents/skills/`
 
-## When to use me
-Use this when you are preparing a tagged release.
-Ask clarifying questions if the target versioning scheme is unclear.
+2. **Create the directory and file** — the directory name must match the skill name:
+   ```
+   .opencode/skills/
+   └── git-release/
+       └── SKILL.md          ← must be all caps
+   ```
+
+3. **Write the frontmatter and instructions:**
+
+   ```markdown
+   ---
+   name: git-release
+   description: Create consistent releases and changelogs
+   ---
+   ## What I do
+   - Draft release notes from merged PRs
+   - Propose a version bump
+   - Provide a copy-pasteable `gh release create` command
+
+   ## When to use me
+   Use this when you are preparing a tagged release.
+   Ask clarifying questions if the target versioning scheme is unclear.
+   ```
+
+4. **Verify it works:** Start opencode and check that the skill appears in the agent's available skills list.
+
+#### Frontmatter Fields
+
+| Field | Required | Description |
+|-------|----------|-------------|
+| `name` | Yes | Skill identifier (must match directory name) |
+| `description` | Yes | What the skill does (1–1024 chars) |
+| `license` | No | License identifier |
+| `compatibility` | No | Compatible tool (e.g., `opencode`) |
+| `metadata` | No | String-to-string map for extra info |
+
+#### Name Rules
+
+Skill names must:
+- Be 1–64 characters
+- Be lowercase alphanumeric with single hyphen separators
+- Not start or end with `-`
+- Not contain consecutive `--`
+- Match the directory name containing `SKILL.md`
+
+Valid: `git-release`, `code-review`, `deploy-v2`
+Invalid: `-git-release`, `git--release`, `GitRelease`, `git_release`
+
+Regex: `^[a-z0-9]+(-[a-z0-9]+)*$`
+
+#### Skill Permissions
+
+Control which skills agents can access in `opencode.json`:
+
+```json
+{
+  "permission": {
+    "skill": {
+      "*": "allow",
+      "pr-review": "allow",
+      "internal-*": "deny",
+      "experimental-*": "ask"
+    }
+  }
+}
 ```
 
-**Rules for skill names:** lowercase alphanumeric with single hyphen separators (regex: `^[a-z0-9]+(-[a-z0-9]+)*$`). Must match the directory name.
+| Permission | Behavior |
+|------------|----------|
+| `"allow"` | Skill loads immediately |
+| `"ask"` | User prompted before loading |
+| `"deny"` | Skill hidden from agent |
 
-Skills appear in the agent's available skills list and are loaded when the agent calls `skill({ name: "git-release" })`.
+You can also override permissions per agent:
+
+```json
+{
+  "agent": {
+    "plan": {
+      "permission": {
+        "skill": {
+          "internal-*": "allow"
+        }
+      }
+    }
+  }
+}
+```
 
 ### Custom Commands
 
-Create slash commands for repetitive tasks. Place markdown files in `.opencode/commands/`:
+Custom commands let you define reusable prompts that run when you type `/command-name` in the TUI.
+
+#### Step-by-step: Creating a Command (Markdown)
+
+1. **Choose a location:**
+   - Project-specific: `.opencode/commands/`
+   - Global: `~/.config/opencode/commands/`
+
+2. **Create the file** — the filename becomes the command name:
+   ```
+   .opencode/commands/
+   ├── test.md              ← /test
+   ├── review.md            ← /review
+   └── create-component.md  ← /create-component
+   ```
+
+3. **Write the frontmatter and template:**
+
+   ```markdown
+   ---
+   description: Run tests with coverage
+   agent: build
+   model: anthropic/claude-sonnet-4-20250514
+   ---
+   Run the full test suite with coverage report and show any failures.
+   Focus on the failing tests and suggest fixes.
+   ```
+
+4. **Verify it works:** Type `/test` in the TUI and confirm the command appears in autocomplete.
+
+#### Step-by-step: Creating a Command (JSON)
+
+1. **Open `opencode.json`** and add under the `"command"` key:
+
+   ```json
+   {
+     "command": {
+       "test": {
+         "template": "Run the full test suite with coverage report and show any failures.\nFocus on the failing tests and suggest fixes.",
+         "description": "Run tests with coverage",
+         "agent": "build",
+         "model": "anthropic/claude-sonnet-4-20250514"
+       }
+     }
+   }
+   ```
+
+2. **Verify it works:** Type `/test` in the TUI.
+
+#### Frontmatter / Config Fields
+
+| Field | Required | Description |
+|-------|----------|-------------|
+| `description` | Yes | Shown in TUI autocomplete |
+| `template` | Yes | The prompt sent to the LLM (JSON only; markdown uses file body) |
+| `agent` | No | Which agent executes this command |
+| `model` | No | Override the model for this command |
+| `subtask` | No | Force subagent invocation (keeps primary context clean) |
+
+#### Prompt Template Features
+
+**Arguments** — pass parameters to commands:
 
 ```markdown
 ---
-description: Run tests with coverage
-agent: build
-model: anthropic/claude-sonnet-4-20250514
+description: Create a new component
 ---
-Run the full test suite with coverage report and show any failures.
-Focus on the failing tests and suggest fixes.
+Create a new React component named $ARGUMENTS with TypeScript support.
+Include proper typing and basic structure.
 ```
 
-Run with `/test` in the TUI. Supports:
+```
+/component Button
+```
 
-| Feature | Syntax | Example |
-|---------|--------|---------|
-| Arguments | `$ARGUMENTS` or `$1`, `$2`, `$3` | `/component Button` |
-| Shell output | `` !`command` `` | `` !`git log --oneline -10` `` |
-| File references | `@path/to/file` | `@src/components/Button.tsx` |
+Use positional parameters for multiple args: `$1`, `$2`, `$3`:
+
+```markdown
+---
+description: Create a file
+---
+Create a file named $1 in directory $2 with content: $3
+```
+
+```
+/create-file config.json src "{ \"key\": \"value\" }"
+```
+
+**Shell output** — inject command output into the prompt:
+
+```markdown
+---
+description: Review recent changes
+---
+Recent git commits:
+!`git log --oneline -10`
+Review these changes and suggest improvements.
+```
+
+**File references** — include file contents:
+
+```markdown
+---
+description: Review component
+---
+Review the component in @src/components/Button.tsx.
+Check for performance issues and suggest improvements.
+```
 
 ### Custom Tools
 
