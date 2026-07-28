@@ -145,4 +145,4 @@ erDiagram
 
 ---
 
-> **Full section:** [Architecture](../10-software-architecture/README.md) | **Next:** [Project Management](pm-quick-reference.md)
+> **Full section:** [Architecture](../10-software-architecture/README.md) | **Next:** [Deployment](deployment-quick-reference.md)
