@@ -72,6 +72,19 @@ nav:
       - Environment Variables: 02-terminal/environment-variables.md
       - Cheat Sheet: 02-terminal/terminal-cheat-sheet.md
       - Troubleshooting: 02-terminal/terminal-troubleshooting.md
+  - AI Development:
+      - Overview: 09-ai-development/README.md
+      - What Is AI Development?: 09-ai-development/what-is-ai-development.md
+      - AI Coding Assistants: 09-ai-development/ai-coding-assistants.md
+      - Prompt Engineering: 09-ai-development/prompt-engineering.md
+      - Context Engineering: 09-ai-development/context-engineering.md
+      - AI Agents: 09-ai-development/ai-agents.md
+      - Code Review: 09-ai-development/ai-code-review.md
+      - Testing: 09-ai-development/ai-testing.md
+      - Debugging: 09-ai-development/ai-debugging.md
+      - Workflows: 09-ai-development/ai-workflows.md
+      - Limitations: 09-ai-development/ai-limitations.md
+      - Troubleshooting: 09-ai-development/ai-troubleshooting.md
   - Cheat Sheets:
       - Foundations: 18-cheat-sheets/foundations-quick-reference.md
       - Terminal: 18-cheat-sheets/terminal-quick-reference.md
