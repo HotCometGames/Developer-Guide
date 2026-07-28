@@ -54,6 +54,20 @@ nav:
       - Experiment Log: 00-templates/experiment-log.md
       - README Template: 00-templates/readme.md
       - AGENTS.md Template: 00-templates/agents-md.md
+  - Foundations:
+      - Overview: 01-foundations/README.md
+      - What Are Foundations?: 01-foundations/what-are-foundations.md
+      - How Computers Work: 01-foundations/how-computers-work.md
+      - The File System: 01-foundations/the-file-system.md
+      - Operating Systems: 01-foundations/operating-systems.md
+      - Environment Variables: 01-foundations/environment-variables.md
+      - Character Encoding: 01-foundations/character-encoding.md
+      - Line Endings: 01-foundations/line-endings.md
+      - Binary and Hex: 01-foundations/binary-and-hex.md
+      - Data Formats: 01-foundations/data-formats.md
+      - Networking Basics: 01-foundations/networking-basics.md
+      - The Command Prompt: 01-foundations/the-command-prompt.md
+      - Troubleshooting: 01-foundations/foundations-troubleshooting.md
   - Terminal:
       - Overview: 02-terminal/README.md
       - What Is a Terminal?: 02-terminal/what-is-a-terminal.md
