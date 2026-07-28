@@ -85,6 +85,20 @@ nav:
       - Workflows: 09-ai-development/ai-workflows.md
       - Limitations: 09-ai-development/ai-limitations.md
       - Troubleshooting: 09-ai-development/ai-troubleshooting.md
+  - Game Development:
+      - Overview: 14-game-development/README.md
+      - What Is Game Dev?: 14-game-development/what-is-gamedev.md
+      - Game Engines: 14-game-development/game-engines.md
+      - Game Loop: 14-game-development/game-loop.md
+      - ECS: 14-game-development/ecs.md
+      - 2D Math: 14-game-development/2d-math.md
+      - Physics: 14-game-development/physics.md
+      - Input: 14-game-development/input.md
+      - Rendering: 14-game-development/rendering.md
+      - Audio: 14-game-development/audio.md
+      - UI: 14-game-development/ui.md
+      - Performance: 14-game-development/performance.md
+      - Troubleshooting: 14-game-development/gamedev-troubleshooting.md
   - Cheat Sheets:
       - Foundations: 18-cheat-sheets/foundations-quick-reference.md
       - Terminal: 18-cheat-sheets/terminal-quick-reference.md
