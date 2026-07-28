@@ -135,6 +135,27 @@ nav:
       - HTML & CSS: 06-programming-languages/html-and-css.md
       - Learning a New Language: 06-programming-languages/learning-new-languages.md
       - Troubleshooting: 06-programming-languages/languages-troubleshooting.md
+  - Package Managers:
+      - Overview: 07-package-managers/README.md
+      - What Is a Package Manager?: 07-package-managers/what-is-a-package-manager.md
+      - JavaScript Package Managers: 07-package-managers/javascript-package-managers.md
+      - Python Package Managers: 07-package-managers/python-package-managers.md
+      - Cargo (Rust): 07-package-managers/cargo.md
+      - Go Modules: 07-package-managers/go-modules.md
+      - Other Ecosystems: 07-package-managers/other-ecosystems.md
+      - Lockfiles & Supply Chain Security: 07-package-managers/lockfiles-and-security.md
+      - Troubleshooting: 07-package-managers/troubleshooting.md
+  - Virtual Environments:
+      - Overview: 08-virtual-environments/README.md
+      - What Is a Virtual Environment?: 08-virtual-environments/what-is-a-virtual-environment.md
+      - Python venv: 08-virtual-environments/python-venv.md
+      - Conda Environments: 08-virtual-environments/conda-environments.md
+      - Python Version Management: 08-virtual-environments/python-version-management.md
+      - Node Version Management: 08-virtual-environments/node-version-management.md
+      - asdf & Multi-Language Versioning: 08-virtual-environments/asdf.md
+      - Docker for Development: 08-virtual-environments/docker-for-development.md
+      - Dev Containers: 08-virtual-environments/dev-containers.md
+      - Troubleshooting: 08-virtual-environments/troubleshooting.md
   - AI Development:
       - Overview: 09-ai-development/README.md
       - What Is AI Development?: 09-ai-development/what-is-ai-development.md
