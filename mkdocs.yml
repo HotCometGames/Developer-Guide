@@ -97,6 +97,19 @@ nav:
       - Architecture Decision Records: 10-software-architecture/architecture-decision-records.md
       - Scalability Patterns: 10-software-architecture/scalability-patterns.md
       - Troubleshooting: 10-software-architecture/architecture-troubleshooting.md
+  - Project Management:
+      - Overview: 11-project-management/README.md
+      - What Is Project Management?: 11-project-management/what-is-project-management.md
+      - Agile Fundamentals: 11-project-management/agile-fundamentals.md
+      - Scrum: 11-project-management/scrum.md
+      - Kanban: 11-project-management/kanban.md
+      - User Stories: 11-project-management/user-stories.md
+      - Estimation & Planning: 11-project-management/estimation-and-planning.md
+      - Sprint Execution: 11-project-management/sprint-execution.md
+      - Retrospectives: 11-project-management/retrospectives.md
+      - Release Planning: 11-project-management/release-planning.md
+      - Remote & Async Teams: 11-project-management/remote-and-async-teams.md
+      - Troubleshooting: 11-project-management/troubleshooting.md
   - Game Development:
       - Overview: 14-game-development/README.md
       - What Is Game Dev?: 14-game-development/what-is-gamedev.md
