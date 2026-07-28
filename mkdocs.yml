@@ -1,6 +1,6 @@
 site_name: Developer Handbook
 site_description: A personal engineering reference manual for software developers.
-site_url: ""
+site_url: "https://hotcometgames.github.io/Developer-Guide/"
 
 theme:
   name: material
@@ -28,7 +28,7 @@ theme:
   icon:
     repo: fontawesome/brands/github
 
-repo_url: ""
+repo_url: "https://github.com/HotCometGames/Developer-Guide"
 edit_uri: ""
 
 nav:
