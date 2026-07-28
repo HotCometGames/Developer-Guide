@@ -43,6 +43,116 @@
 | Test generation | "Write tests for this function" | Improving coverage |
 | Documentation | "Document this function" | Writing docs |
 
+## OpenCode (Terminal AI Agent)
+
+### Setup
+
+```bash
+curl -fsSL https://opencode.ai/install | bash   # Install
+opencode                                          # Launch in project dir
+/init                                             # Create AGENTS.md
+```
+
+### Built-in Agents
+
+| Agent | Type | Access |
+|-------|------|--------|
+| Build | Primary (default) | Full |
+| Plan | Primary | Read-only (writes ask) |
+| @explore | Subagent | Read-only |
+| @general | Subagent | Full |
+| @scout | Subagent | Read-only (external) |
+
+**Switch primary:** `Tab` | **Invoke subagent:** `@name` in message
+
+### Key Commands
+
+| Command | What It Does |
+|---------|-------------|
+| `/init` | Generate AGENTS.md from project |
+| `/undo` | Revert last agent changes |
+| `/redo` | Re-apply undone changes |
+| `/share` | Share conversation link |
+| `/connect` | Set up LLM provider |
+
+### Custom Agent (Markdown)
+
+`.opencode/agents/review.md`:
+
+```markdown
+---
+description: Code review without edits
+mode: subagent
+permission:
+  edit: deny
+  bash: deny
+---
+You are a code reviewer. Focus on security, performance, maintainability.
+```
+
+### Custom Skill
+
+`.opencode/skills/git-release/SKILL.md`:
+
+```markdown
+---
+name: git-release
+description: Create consistent releases and changelogs
+---
+## What I do
+- Draft release notes from merged PRs
+- Propose a version bump
+- Provide a copy-pasteable `gh release create` command
+```
+
+### Custom Command
+
+`.opencode/commands/test.md`:
+
+```markdown
+---
+description: Run tests with coverage
+---
+Run the full test suite with coverage and show failures.
+Suggest fixes for failing tests.
+```
+
+Usage: `/test` or `/test --verbose` (`$ARGUMENTS` receives `--verbose`)
+
+### Custom Tool
+
+`.opencode/tools/database.ts`:
+
+```typescript
+import { tool } from "@opencode-ai/plugin"
+export default tool({
+  description: "Query the project database",
+  args: { query: tool.schema.string().describe("SQL query") },
+  async execute(args) { return `Executed: ${args.query}` },
+})
+```
+
+### Permissions Cheat
+
+```json
+{ "permission": { "edit": "deny", "bash": { "*": "ask", "git status": "allow" } } }
+```
+
+| Value | Behavior |
+|-------|----------|
+| `"allow"` | Runs without asking |
+| `"ask"` | Prompts before each use |
+| `"deny"` | Tool unavailable |
+
+### Finding Premade Agents
+
+| Resource | URL |
+|----------|-----|
+| awesome-opencode | [github.com/awesome-opencode/awesome-opencode](https://github.com/awesome-opencode/awesome-opencode) |
+| opencode.cafe | [opencode.cafe](https://opencode.cafe) |
+| Ecosystem docs | [opencode.ai/docs/ecosystem](https://opencode.ai/docs/ecosystem/) |
+| oh-my-opencode | [github.com/code-yeongyu/oh-my-opencode](https://github.com/code-yeongyu/oh-my-opencode) |
+
 ## Prompt Engineering for Code
 
 ### Effective Prompts
@@ -153,4 +263,4 @@ Brief description of the project.
 
 ---
 
-> **Full section:** [AI Development](../09-ai-development/README.md) | **Next:** [Game Development](gamedev-quick-reference.md)
+> **Full section:** [AI Development](../09-ai-development/README.md) | **OpenCode Agents Deep Dive:** [AI Agents](../09-ai-development/ai-agents.md) | **Next:** [Game Development](gamedev-quick-reference.md)

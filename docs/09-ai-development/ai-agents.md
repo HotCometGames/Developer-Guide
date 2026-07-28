@@ -186,6 +186,234 @@ Agent ←→ MCP Client ←→ MCP Server ←→ External Tool
 }
 ```
 
+## OpenCode: Open Source AI Agent Framework
+
+OpenCode is an open-source AI coding agent that runs in your terminal, desktop app, or IDE extension. It's fully customizable — you can create your own agents, skills, commands, and tools.
+
+> **Docs:** [opencode.ai/docs](https://opencode.ai/docs) | **GitHub:** [github.com/anomalyco/opencode](https://github.com/anomalyco/opencode)
+
+### Setup
+
+```bash
+# Install
+curl -fsSL https://opencode.ai/install | bash
+# or: npm install -g opencode-ai
+# or: choco install opencode       # Windows
+# or: brew install anomalyco/tap/opencode  # macOS
+
+# Launch in your project directory
+opencode
+
+# Initialize (creates AGENTS.md)
+/init
+```
+
+### Built-in Agents
+
+| Agent | Type | Purpose | Tool Access |
+|-------|------|---------|-------------|
+| **Build** | Primary | Default agent for development | Full (read, write, bash, etc.) |
+| **Plan** | Primary | Analysis and planning without changes | Read-only (writes/bashes ask permission) |
+| **General** | Subagent | Research complex questions, multi-step tasks | Full (except todo) |
+| **Explore** | Subagent | Fast, read-only codebase exploration | Read-only |
+| **Scout** | Subagent | External docs and dependency research | Read-only (external repos) |
+
+Switch between primary agents with **Tab**. Invoke subagents with `@general`, `@explore`, or `@scout` in your messages.
+
+### Creating Custom Agents
+
+**Markdown method** — Create a file in `.opencode/agents/`:
+
+```markdown
+---
+description: Reviews code for quality and best practices
+mode: subagent
+model: anthropic/claude-sonnet-4-20250514
+temperature: 0.1
+permission:
+  edit: deny
+  bash: deny
+---
+You are in code review mode. Focus on:
+- Code quality and best practices
+- Potential bugs and edge cases
+- Performance implications
+- Security considerations
+Provide constructive feedback without making direct changes.
+```
+
+**JSON method** — Add to `opencode.json`:
+
+```json
+{
+  "agent": {
+    "code-reviewer": {
+      "description": "Reviews code for best practices and potential issues",
+      "mode": "subagent",
+      "model": "anthropic/claude-sonnet-4-20250514",
+      "prompt": "You are a code reviewer. Focus on security, performance, and maintainability.",
+      "permission": {
+        "edit": "deny"
+      }
+    }
+  }
+}
+```
+
+**CLI method** — Interactive creation:
+
+```bash
+opencode agent create
+```
+
+### Key Agent Options
+
+| Option | What It Does | Example |
+|--------|-------------|---------|
+| `description` | What the agent does (required) | `"Reviews code for issues"` |
+| `mode` | How it's used: `primary`, `subagent`, or `all` | `"subagent"` |
+| `model` | Override the LLM model | `"anthropic/claude-sonnet-4-20250514"` |
+| `temperature` | Response randomness (0.0–1.0) | `0.1` for deterministic, `0.7` for creative |
+| `steps` | Max agentic iterations before forced text response | `10` |
+| `permission` | Tool access control (allow/ask/deny) | `{ "edit": "deny" }` |
+| `prompt` | Custom system prompt file | `"{file:./prompts/review.txt}"` |
+| `color` | UI appearance | `"#ff6b6b"` or `"accent"` |
+| `hidden` | Hide from `@` autocomplete (subagents only) | `true` |
+
+### Permissions System
+
+Control what agents can do with fine-grained permissions:
+
+```json
+{
+  "agent": {
+    "safe-agent": {
+      "permission": {
+        "edit": "deny",
+        "bash": {
+          "*": "ask",
+          "git status": "allow",
+          "git diff": "allow",
+          "npm test": "allow"
+        }
+      }
+    }
+  }
+}
+```
+
+| Value | Behavior |
+|-------|----------|
+| `"allow"` | Tool runs without asking |
+| `"ask"` | User prompted before each use |
+| `"deny"` | Tool is unavailable |
+
+Permission keys: `read`, `edit`, `bash`, `glob`, `grep`, `task`, `webfetch`, `websearch`, `skill`, and more. Use glob patterns for fine-grained bash control.
+
+### Agent Skills
+
+Skills are reusable instruction files loaded on demand via the `skill` tool. Place them in:
+
+- `.opencode/skills/<name>/SKILL.md` (project)
+- `~/.config/opencode/skills/<name>/SKILL.md` (global)
+
+```markdown
+---
+name: git-release
+description: Create consistent releases and changelogs
+---
+## What I do
+- Draft release notes from merged PRs
+- Propose a version bump
+- Provide a copy-pasteable `gh release create` command
+
+## When to use me
+Use this when you are preparing a tagged release.
+Ask clarifying questions if the target versioning scheme is unclear.
+```
+
+**Rules for skill names:** lowercase alphanumeric with single hyphen separators (regex: `^[a-z0-9]+(-[a-z0-9]+)*$`). Must match the directory name.
+
+Skills appear in the agent's available skills list and are loaded when the agent calls `skill({ name: "git-release" })`.
+
+### Custom Commands
+
+Create slash commands for repetitive tasks. Place markdown files in `.opencode/commands/`:
+
+```markdown
+---
+description: Run tests with coverage
+agent: build
+model: anthropic/claude-sonnet-4-20250514
+---
+Run the full test suite with coverage report and show any failures.
+Focus on the failing tests and suggest fixes.
+```
+
+Run with `/test` in the TUI. Supports:
+
+| Feature | Syntax | Example |
+|---------|--------|---------|
+| Arguments | `$ARGUMENTS` or `$1`, `$2`, `$3` | `/component Button` |
+| Shell output | `` !`command` `` | `` !`git log --oneline -10` `` |
+| File references | `@path/to/file` | `@src/components/Button.tsx` |
+
+### Custom Tools
+
+Create tools the LLM can call. Place TypeScript/JavaScript files in `.opencode/tools/`:
+
+```typescript
+import { tool } from "@opencode-ai/plugin"
+
+export default tool({
+  description: "Query the project database",
+  args: {
+    query: tool.schema.string().describe("SQL query to execute"),
+  },
+  async execute(args) {
+    return `Executed query: ${args.query}`
+  },
+})
+```
+
+The filename becomes the tool name. You can call any language from the tool definition — TypeScript is just for the tool wrapper. Tools receive context with `agent`, `sessionID`, `directory`, and `worktree`.
+
+### Rules (AGENTS.md)
+
+Provide custom instructions via `AGENTS.md` files:
+
+- **Project rules:** `AGENTS.md` in repo root (committed to Git)
+- **Global rules:** `~/.config/opencode/AGENTS.md` (personal)
+- **Additional files:** `"instructions": ["CONTRIBUTING.md", "docs/guidelines.md"]` in `opencode.json`
+
+Run `/init` to auto-generate an AGENTS.md from your project structure.
+
+### How to Build Agents Well
+
+| Practice | Why |
+|----------|-----|
+| Start with `opencode agent create` | Interactive wizard generates a solid starting prompt |
+| One agent per concern | Don't make a "do everything" agent — split by task type |
+| Use `mode: subagent` for specialized work | Let primary agents delegate to focused specialists |
+| Set `permission: edit: deny` for read-only agents | Prevents accidental modifications during review/analysis |
+| Use `hidden: true` for internal subagents | Keeps the `@` autocomplete clean for user-facing agents |
+| Pin models per agent | Use fast/cheap models for exploration, capable models for implementation |
+| Set `temperature: 0.1` for code analysis | Deterministic output for review, planning, and debugging |
+| Reference prompt files with `{file:./prompts/...}` | Keeps prompts version-controlled and separate from config |
+| Use glob permissions for bash | `"git status": "allow"` while `"rm *": "deny"` |
+| Share agents via Git | Commit `.opencode/agents/` to share team-specific agents |
+
+### Finding Premade Agents and Skills
+
+| Resource | What's There |
+|----------|-------------|
+| [awesome-opencode](https://github.com/awesome-opencode/awesome-opencode) | Curated list of OpenCode plugins, tools, and configs |
+| [opencode.cafe](https://opencode.cafe) | Community hub aggregating the ecosystem |
+| [Ecosystem — Agents](https://opencode.ai/docs/ecosystem/) | Official list: `Agentic` (modular agents), `opencode-agents` (configs/prompts/plugins) |
+| [oh-my-opencode](https://github.com/code-yeongyu/oh-my-opencode) | Background agents, pre-built LSP/AST tools, curated agents |
+| [opencode-skillful](https://github.com/zenobi-us/opencode-skillful) | Skill discovery and lazy-loading plugin |
+| [opencode-workspace](https://github.com/kdcokenny/opencode-workspace) | Bundled multi-agent orchestration — 16 components, one install |
+
 ## When to Use Agents vs Inline Suggestions
 
 | Use Inline Suggestions When | Use Agents When |
@@ -265,6 +493,9 @@ Good agent tasks are **bounded**:
 
 ## Further Learning
 
+- [OpenCode Docs](https://opencode.ai/docs) - Official OpenCode documentation
+- [awesome-opencode](https://github.com/awesome-opencode/awesome-opencode) - Curated ecosystem list
+- [opencode.cafe](https://opencode.cafe) - Community hub
 - [Model Context Protocol](https://modelcontextprotocol.io/) - Official MCP docs
 - [Cursor Agent Docs](https://docs.cursor.com/agent) - Cursor agent guide
 - [Cline Docs](https://docs.cline.bot) - Cline agent guide
