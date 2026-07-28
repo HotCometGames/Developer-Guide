@@ -1,0 +1,235 @@
+/*
+ * Developer Handbook — Custom UI Styles
+ *
+ * Design principles:
+ *  - Work WITH the theme's native toggle system, not against it.
+ *  - Section headers are bold, larger, have a "▶" expand icon that rotates
+ *    to "▼" when opened, and show a left accent border on hover.
+ *  - Child pages are indented under a subtle left border for clear hierarchy.
+ *  - Active page is highlighted with the accent color for wayfinding.
+ *  - All toggling is handled by the theme's built-in checkbox + CSS grid.
+ *    We just style the visuals on top.
+ */
+
+/* ─── Sidebar: Section Headers ──────────────────────────────────────────── */
+/* Bold, uppercase, visually distinct from page links */
+
+.md-nav__item--section > .md-nav__link {
+  font-weight: 700 !important;
+  font-size: 0.85rem !important;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: var(--md-default-fg-color) !important;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  padding-left: 0.2rem;
+  border-left: 3px solid transparent;
+  transition: border-color 0.2s ease, color 0.2s ease;
+  cursor: pointer !important;
+  user-select: none;
+  pointer-events: auto !important;
+}
+
+/* Accent left border on hover — makes it obvious this is clickable */
+.md-nav__item--section > .md-nav__link:hover {
+  border-left-color: var(--md-accent-fg-color);
+  color: var(--md-accent-fg-color) !important;
+}
+
+/* ─── Expand/Collapse "▶" Indicator ─────────────────────────────────────── */
+/* Hide the theme's built-in icon (it uses SVG mask-image which can be tiny) */
+.md-nav__item--section > .md-nav__link .md-nav__icon {
+  display: none !important;
+}
+
+/* Add a visible "▶" character that acts as the expand button */
+.md-nav__item--section > .md-nav__link::before {
+  content: "▶";
+  font-size: 0.55rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.2rem;
+  height: 1.2rem;
+  margin-right: 0.3rem;
+  color: var(--md-default-fg-color--light);
+  transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  flex-shrink: 0;
+  line-height: 1;
+}
+
+/* Rotate "▶" to "▼" when section is expanded (checkbox checked) */
+.md-nav__item--nested .md-nav__toggle:checked ~ .md-nav__link::before {
+  transform: rotate(90deg);
+  color: var(--md-accent-fg-color);
+}
+
+/* ─── Sidebar: Indent pages within sections ─────────────────────────────── */
+/* The theme sets display:block / opacity:1 / visibility:visible on section
+   child navs, which keeps sections always-expanded. We undo that so the
+   theme's grid-animation toggle (collapsible sections) can work. */
+
+.md-nav__item--section > .md-nav {
+  display: grid;
+  opacity: initial;
+  visibility: initial;
+  padding-left: 0.75rem;
+  margin-left: 0.15rem;
+  border-left: 1.5px solid var(--md-default-fg-color--lightest);
+}
+
+/* ─── Sidebar: Page links within sections ───────────────────────────────── */
+
+.md-nav__item--section .md-nav__link {
+  font-weight: 400;
+  font-size: 0.78rem;
+  color: var(--md-default-fg-color--light);
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+  border-radius: 0.2rem;
+  transition: color 0.15s ease, background-color 0.15s ease;
+}
+
+.md-nav__item--section .md-nav__link:hover {
+  color: var(--md-accent-fg-color);
+  background-color: var(--md-accent-fg-color--transparent);
+}
+
+/* ─── Sidebar: Active page highlight ────────────────────────────────────── */
+
+.md-nav__link--active {
+  font-weight: 600 !important;
+  color: var(--md-accent-fg-color) !important;
+  background-color: var(--md-accent-fg-color--transparent);
+  border-radius: 0.2rem;
+}
+
+.md-nav__item--section .md-nav__link--active {
+  font-weight: 600 !important;
+}
+
+/* ─── Sidebar: Section spacing ──────────────────────────────────────────── */
+
+.md-nav__item--section {
+  margin-bottom: 0.6rem;
+  padding-bottom: 0.4rem;
+  border-bottom: 1px solid var(--md-default-fg-color--lightest);
+}
+
+.md-nav__item--section:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+}
+
+/* ─── Sidebar: Overall nav polish ───────────────────────────────────────── */
+
+.md-nav--primary .md-nav__list {
+  padding: 0.2rem 0;
+}
+
+.md-nav__title {
+  font-weight: 600;
+  font-size: 0.8rem;
+}
+
+/* ─── Content area improvements ─────────────────────────────────────────── */
+
+.md-content__inner {
+  max-width: 48rem;
+}
+
+.md-typeset h1 {
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin-top: 0;
+}
+
+.md-typeset h2 {
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  border-bottom: 1px solid var(--md-default-fg-color--lightest);
+  padding-bottom: 0.3rem;
+}
+
+.md-typeset h3 {
+  font-weight: 600;
+}
+
+/* Code blocks - subtle polish */
+.md-typeset code {
+  font-size: 0.8em;
+  border-radius: 0.2rem;
+}
+
+.md-typeset pre > code {
+  border-radius: 0.3rem;
+}
+
+/* ─── Admonition polish ─────────────────────────────────────────────────── */
+
+.md-typeset .admonition,
+.md-typeset details {
+  border-radius: 0.3rem;
+  font-size: 0.75rem;
+}
+
+/* ─── Table improvements ────────────────────────────────────────────────── */
+
+.md-typeset table:not(.highlighttable) {
+  border-radius: 0.3rem;
+  overflow: hidden;
+  box-shadow: var(--md-shadow-z1);
+}
+
+.md-typeset table:not(.highlighttable) th {
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 0.7rem;
+  letter-spacing: 0.05em;
+}
+
+/* ─── Responsive adjustments ────────────────────────────────────────────── */
+
+@media screen and (max-width: 76.234375em) {
+  .md-nav__item--section > .md-nav__link {
+    font-size: 0.9rem;
+  }
+
+  .md-nav__item--section .md-nav__link {
+    font-size: 0.82rem;
+  }
+
+  .md-nav__item--section > .md-nav {
+    padding-left: 1rem;
+    margin-left: 0;
+  }
+
+  /* Make the expand icon slightly larger on mobile for touch targets */
+  .md-nav__item--section > .md-nav__link::before {
+    font-size: 0.65rem;
+    width: 1.4rem;
+    height: 1.4rem;
+  }
+}
+
+/* ─── Focus states for accessibility ────────────────────────────────────── */
+
+.md-nav__link:focus-visible {
+  outline: 2px solid var(--md-accent-fg-color);
+  outline-offset: 2px;
+}
+
+/* ─── Header polish ─────────────────────────────────────────────────────── */
+
+.md-header {
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+/* ─── Back-to-top button ────────────────────────────────────────────────── */
+
+.md-top {
+  border-radius: 2rem;
+  padding: 0.4rem 1rem;
+  font-size: 0.7rem;
+  box-shadow: var(--md-shadow-z2);
+}
