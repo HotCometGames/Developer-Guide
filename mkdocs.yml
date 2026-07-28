@@ -124,6 +124,18 @@ nav:
       - UI: 14-game-development/ui.md
       - Performance: 14-game-development/performance.md
       - Troubleshooting: 14-game-development/gamedev-troubleshooting.md
+  - Hackathons & Game Jams:
+      - Overview: 16-hackathons-game-jams/README.md
+      - What Are Hackathons & Game Jams?: 16-hackathons-game-jams/what-are-hackathons-and-game-jams.md
+      - Choosing an Idea: 16-hackathons-game-jams/choosing-an-idea.md
+      - Team Formation & Roles: 16-hackathons-game-jams/team-formation-and-roles.md
+      - Time Management: 16-hackathons-game-jams/time-management.md
+      - Tech Stack & Setup: 16-hackathons-game-jams/tech-stack-and-setup.md
+      - Building the MVP: 16-hackathons-game-jams/building-the-mvp.md
+      - Polish & Juice: 16-hackathons-game-jams/polish-and-juice.md
+      - The Pitch & Demo: 16-hackathons-game-jams/the-pitch-and-demo.md
+      - Post-Hackathon: 16-hackathons-game-jams/post-hackathon.md
+      - Troubleshooting: 16-hackathons-game-jams/troubleshooting.md
   - Cheat Sheets:
       - Foundations: 18-cheat-sheets/foundations-quick-reference.md
       - Terminal: 18-cheat-sheets/terminal-quick-reference.md
