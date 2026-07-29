@@ -195,6 +195,26 @@ nav:
       - Release Planning: 11-project-management/release-planning.md
       - Remote & Async Teams: 11-project-management/remote-and-async-teams.md
       - Troubleshooting: 11-project-management/troubleshooting.md
+  - Testing:
+      - Overview: 12-testing/README.md
+      - What Is Testing?: 12-testing/what-is-testing.md
+      - Unit Testing: 12-testing/unit-testing.md
+      - Integration Testing: 12-testing/integration-testing.md
+      - End-to-End Testing: 12-testing/end-to-end-testing.md
+      - TDD: 12-testing/test-driven-development.md
+      - Python Testing: 12-testing/python-testing.md
+      - JavaScript Testing: 12-testing/javascript-testing.md
+      - Troubleshooting: 12-testing/troubleshooting.md
+  - Deployment:
+      - Overview: 13-deployment/README.md
+      - What Is Deployment?: 13-deployment/what-is-deployment.md
+      - GitHub Pages: 13-deployment/github-pages.md
+      - Vercel: 13-deployment/vercel.md
+      - Railway: 13-deployment/railway.md
+      - Docker Deployment: 13-deployment/docker-deployment.md
+      - CI/CD Pipelines: 13-deployment/ci-cd-pipelines.md
+      - Environment Management: 13-deployment/environment-management.md
+      - Troubleshooting: 13-deployment/troubleshooting.md
   - Game Development:
       - Overview: 14-game-development/README.md
       - What Is Game Dev?: 14-game-development/what-is-gamedev.md
