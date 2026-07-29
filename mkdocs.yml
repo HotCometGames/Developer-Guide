@@ -229,6 +229,15 @@ nav:
       - UI: 14-game-development/ui.md
       - Performance: 14-game-development/performance.md
       - Troubleshooting: 14-game-development/gamedev-troubleshooting.md
+  - Machine Learning:
+      - Overview: 15-machine-learning/README.md
+      - What Is Machine Learning?: 15-machine-learning/what-is-machine-learning.md
+      - Data Preparation: 15-machine-learning/data-preparation.md
+      - scikit-learn: 15-machine-learning/scikit-learn.md
+      - Neural Networks & Deep Learning: 15-machine-learning/neural-networks-and-deep-learning.md
+      - PyTorch: 15-machine-learning/pytorch.md
+      - Model Evaluation: 15-machine-learning/model-evaluation.md
+      - Troubleshooting: 15-machine-learning/troubleshooting.md
   - Hackathons & Game Jams:
       - Overview: 16-hackathons-game-jams/README.md
       - What Are Hackathons & Game Jams?: 16-hackathons-game-jams/what-are-hackathons-and-game-jams.md
@@ -241,6 +250,15 @@ nav:
       - The Pitch & Demo: 16-hackathons-game-jams/the-pitch-and-demo.md
       - Post-Hackathon: 16-hackathons-game-jams/post-hackathon.md
       - Troubleshooting: 16-hackathons-game-jams/troubleshooting.md
+  - Developer Wisdom:
+      - Overview: 17-developer-wisdom/README.md
+      - Engineering Principles: 17-developer-wisdom/engineering-principles.md
+      - Code Smells & Refactoring: 17-developer-wisdom/code-smells-and-refactoring.md
+      - Debugging Mindset: 17-developer-wisdom/debugging-mindset.md
+      - Learning & Growth: 17-developer-wisdom/learning-and-growth.md
+      - Decision Making & Trade-offs: 17-developer-wisdom/decision-making-and-tradeoffs.md
+      - Communication & Collaboration: 17-developer-wisdom/communication-and-collaboration.md
+      - Troubleshooting: 17-developer-wisdom/troubleshooting.md
   - Cheat Sheets:
       - Foundations: 18-cheat-sheets/foundations-quick-reference.md
       - Terminal: 18-cheat-sheets/terminal-quick-reference.md
